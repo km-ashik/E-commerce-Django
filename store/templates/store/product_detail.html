@@ -1,0 +1,81 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+
+<style>
+    .product-detail-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 40px auto;
+        max-width: 1200px;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .product-detail-image {
+        flex: 1;
+        min-width: 300px;
+        max-width: 400px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .product-detail-image img {
+        width: 100%;
+        height: auto;
+    }
+    .product-detail-info {
+        flex: 2;
+        min-width: 300px;
+        padding: 20px;
+    }
+    .product-detail-info h1 {
+        margin-bottom: 10px;
+        font-size: 2rem;
+        color: #333;
+    }
+    .product-detail-info .price {
+        font-size: 1.5rem;
+        color: #01b075;
+        margin-bottom: 20px;
+    }
+    .product-detail-info .description {
+        margin-bottom: 20px;
+        color: #555;
+        line-height: 1.6;
+    }
+    .product-detail-info .add-to-cart-btn {
+        display: inline-block;
+        padding: 12px 20px;
+        background: #01b075;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .product-detail-info .add-to-cart-btn:hover {
+        background: #018a5e;
+    }
+</style>
+
+<div class="product-detail-container">
+    <!-- Product Image -->
+    <div class="product-detail-image">
+        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-detail-info">
+        <h1>{{ product.title }}</h1>
+        <div class="price">₹ {{ product.price }}</div>
+        <div class="description">{{ product.description }}</div>
+        <a href="{% url 'add_to_cart' product.id %}" class="add-to-cart-btn">Add to Cart</a>
+    </div>
+</div>
+
+{% endblock %}

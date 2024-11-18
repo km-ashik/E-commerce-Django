@@ -1,0 +1,62 @@
+{% extends 'store/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    @media (max-width: 768px) {
+      .carousel {
+        display: none;
+      }
+    }
+  </style>
+<div class="carousel">
+<div id="carouselExampleSlidesOnly" style="width: 100%; height: 300px;margin-top: -20px;" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img style="width: 100% ;height: 100%; " src="{% static 'images/carousel-1.png' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img style="width: 100% ;height: 100%;" src="{% static 'images/carousel-2.png' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img style="width: 100% ;height: 100%;" src="{% static 'images/carousel-3.png' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img style="width: 100% ;height: 100%;" src="{% static 'images/carousel-4.png' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img style="width: 100% ;height: 100%;" src="{% static 'images/carousel-5.png' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+    
+    <div style=" justify-content: center;" class="row h-100">
+        {% for product in products %}
+        <div style="width: 300px; height: 100%;" class="col-md-4 mb-4" >
+            <div class="card h-100">
+                <!-- Product Image -->
+                <img 
+                    src="{{ product.image.url }}" 
+                    class="card-img-top rounded" 
+                    alt="{{ product.title }}" 
+                    style="height: 300px; object-fit: cover;">
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <h6 class="card-subtitle text-muted">₹{{ product.price }}</h6>
+                </div>
+
+                <!-- Card Footer with Buttons -->
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-success btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

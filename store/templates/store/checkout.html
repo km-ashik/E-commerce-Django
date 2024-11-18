@@ -1,0 +1,28 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="card">
+        <div class="card-header bg-warning text-white">
+            <h4>Checkout</h4>
+        </div>
+        <div class="card-body">
+            <h5>Shipping Address</h5>
+            <p><strong>Name:</strong> {{ customer_address.name }}</p>
+            <p><strong>Address:</strong> {{ customer_address.address }}</p>
+            <p><strong>City:</strong> {{ customer_address.city }}</p>
+            <p><strong>State:</strong> {{ customer_address.state }}</p>
+            <p><strong>PIN Code:</strong> {{ customer_address.pin }}</p>
+            <a href="#" class="btn btn-success mt-3" id="place-order-btn">
+                Place Order
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("place-order-btn").addEventListener("click", function(e) {
+        e.preventDefault();
+        alert("Your order has been placed successfully!");
+    });
+</script>
+{% endblock %}

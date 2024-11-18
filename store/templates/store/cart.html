@@ -1,0 +1,124 @@
+{% extends 'store/base.html' %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+
+<style>
+    .cart-container {
+        margin: 40px auto;
+        max-width: 1000px;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .cart-header, .cart-item {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+        align-items: center;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+    }
+    .cart-header {
+        font-weight: bold;
+        background: #f1f1f1;
+    }
+    .cart-item img {
+        width: 70px;
+        height: 70px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    .cart-item .title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #333;
+    }
+    .cart-item .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .cart-item .quantity-controls button {
+        padding: 5px 10px;
+        background: #01b075;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .cart-item .quantity-controls button:hover {
+        background: #018a5e;
+    }
+    .cart-item .remove-btn {
+        padding: 5px 10px;
+        background: #ff3f40;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .cart-item .remove-btn:hover {
+        background: #cc3234;
+    }
+    .total-container {
+        text-align: right;
+        margin-top: 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .checkout-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 20px;
+        background: #01b075;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+    .checkout-btn:hover {
+        background: #018a5e;
+    }
+</style>
+
+<div class="cart-container">
+    <!-- Cart Header -->
+    <div class="cart-header">
+        <div>Image</div>
+        <div>Product</div>
+        <div>Quantity</div>
+        <div>Price</div>
+        <div>Action</div>
+    </div>
+
+    <!-- Cart Items -->
+    {% for item in cart_items %}
+    <div class="cart-item">
+        <div><img src="{{ item.product.image.url }}" alt="{{ item.product.title }}"></div>
+        <div class="title">{{ item.product.title }}</div> <!-- Only product title here -->
+        <div class="quantity-controls">
+            <a href="{% url 'update_cart' item.product.id 'decrement' %}"><button>-</button></a>
+            <span>{{ item.quantity }}</span>
+            <a href="{% url 'update_cart' item.product.id 'increment' %}"><button>+</button></a>
+        </div>
+        <div>₹ {{ item.subtotal }}</div>
+        <div>
+            <a href="{% url 'remove_from_cart' item.product.id %}"><button class="remove-btn">Remove</button></a>
+        </div>
+    </div>
+    {% empty %}
+    <p>Your cart is empty!</p>
+    {% endfor %}
+
+    <!-- Total and Checkout -->
+    <div class="total-container">
+        Total: ₹ {{ total_price }}
+    </div>
+    <a href="{% url 'checkout' %}" id="checkout-btn" class="btn btn-success">
+        Proceed to Checkout
+    </a></div>
+
+{% endblock %}
